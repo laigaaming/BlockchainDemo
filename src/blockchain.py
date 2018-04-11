@@ -5,6 +5,7 @@ from time import time
 from uuid import uuid4
 from flask import Flask
 from flask import jsonify
+from flask import request
 
 class Blockchain(object):
     def __init__(self):
@@ -114,5 +115,17 @@ def full_chain():
         'length': len(blockchain.chain),
     }
     return jsonify(response), 200
+
+@app.route('/shutdown', methods=['GET'])
+def shutdown():
+    shutdown_server()
+    return 'Server shutting down...'
+
+def shutdown_server():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
