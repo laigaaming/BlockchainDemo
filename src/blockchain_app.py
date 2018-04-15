@@ -21,7 +21,7 @@ def new_transaction():
     '''
     req_json = json.dumps(req_data)
     hd = 'Content-Type: application/json'
-    resp = requests.post(url = req_url, json = req_json, header = hd)
+    resp = requests.post(url = req_url, json = req_json)
     return 'We will add a new transaction'
 
 @app.route('/shutdown', methods=['GET'])
@@ -36,5 +36,5 @@ def shutdown_server():
     func()
 
 if __name__ == '__main__':
-    # app.run(host='0.0.0.0', port=5001)
-    new_transaction()
+    app.run(host='0.0.0.0', port=5001)
+    # new_transaction()
