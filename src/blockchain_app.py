@@ -9,6 +9,11 @@ from src import blockchain
 # Instantiate our Node
 app = Flask(__name__)
 
+@app.route('/mine')
+def mine():
+    resp = blockchain.mine()
+
+
 @app.route('/transactions/new', methods=['GET'])
 def new_transaction():
     req_url = 'http://localhost:5000/transactions/new'
@@ -22,11 +27,12 @@ def new_transaction():
     req_json = json.dumps(req_data)
     hd = 'Content-Type: application/json'
     resp = requests.post(url = req_url, json = req_json)
-    return 'We will add a new transaction'
+    return 'A new transaction is added successfully.'
 
 @app.route('/shutdown', methods=['GET'])
 def shutdown():
     shutdown_server()
+    blockchain.shutdown_server()
     return 'Server shutting down...'
 
 def shutdown_server():

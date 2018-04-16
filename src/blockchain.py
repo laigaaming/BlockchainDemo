@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 import hashlib
-# import json
+import json
 from time import time
 from uuid import uuid4
 from flask import Flask
